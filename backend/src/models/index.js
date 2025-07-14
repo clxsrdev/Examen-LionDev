@@ -24,3 +24,22 @@ const sequelize = new Sequelize(
 })();
 
 module.exports = { sequelize };
+
+const Sala = require('./sala');
+const Reserva = require('./reserva');
+
+Sala.hasMany(Reserva, {
+  foreignKey: 'sala_id',
+  onDelete: 'CASCADE'
+});
+
+Reserva.belongsTo(Sala, {
+  foreignKey: 'sala_id'
+});
+
+module.exports = {
+  sequelize,
+  Sala,
+  Reserva
+};
+
