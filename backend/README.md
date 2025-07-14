@@ -162,3 +162,18 @@ npm run dev
 - Implementado con node-cron.
 - Corre cada minuto.
 - Cambia a 'liberada' cualquier reserva 'activa' cuyo horario_fin ya haya pasado.
+
+## Tests
+
+Este proyecto incluye tests unitarios para validar las funciones utilitarias.
+
+Para ejecutar los tests, usa el siguiente comando en la carpeta `backend`:
+```
+npm test
+```
+
+Esto ejecutará todos los test suites definidos con Jest. Actualmente incluye pruebas para validar la función `validateDuration` del módulo de utilidades, verificando:
+
+- Reservas con duración válida (≤ 2 horas).
+- Error si la duración excede 2 horas.
+- Error si la fecha de fin es anterior a la de inicio.
