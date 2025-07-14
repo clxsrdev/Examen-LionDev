@@ -4,7 +4,7 @@ const { Op } = require('sequelize');
 
 function startLiberarReservasJob() {
   cron.schedule('* * * * *', async () => {
-    console.log('⏰ Ejecutando cron job para liberar reservas vencidas...');
+    console.log('Ejecutando cron job para liberar reservas vencidas...');
 
     try {
       const vencidas = await Reserva.findAll({
@@ -18,11 +18,11 @@ function startLiberarReservasJob() {
 
       for (const reserva of vencidas) {
         await reserva.update({ estado: 'liberada' });
-        console.log(`✅ Reserva ID ${reserva.id} liberada`);
+        console.log(`Reserva ID ${reserva.id} liberada`);
       }
 
     } catch (error) {
-      console.error('❌ Error en cron job:', error);
+      console.error('Error en cron job:', error);
     }
   });
 }
