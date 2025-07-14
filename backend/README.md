@@ -4,7 +4,7 @@ API REST para gestionar salas de juntas y sus reservas, con cron job para libera
 
 ---
 
-## 📌 Tecnologías
+## Tecnologías
 
 - Node.js
 - Express
@@ -14,17 +14,151 @@ API REST para gestionar salas de juntas y sus reservas, con cron job para libera
 
 ---
 
-## 📌 Requisitos previos
+## Requisitos previos
 
 - Node.js (versión recomendada ≥ 14)
 - PostgreSQL
 
 ---
 
-## 📌 Instalación
+## Instalación
 
 Clona el repositorio y ve al directorio del backend:
 
-```bash
+```
 cd backend
 npm install
+```
+
+---
+
+## Configuración
+
+Crea un archivo `.env` en `/backend` con las siguientes variables:
+
+```
+DB_NAME=nombre_base_datos
+DB_USER=usuario
+DB_PASSWORD=contraseña
+DB_HOST=localhost
+DB_PORT=5432
+PORT=3000
+```
+
+---
+
+## Inicialización de la Base de Datos
+
+El proyecto incluye los archivos `schema.sql` y `seed.sql` en el directorio `DB` para facilitar la creación y el poblado de la base de datos.
+
+**Pasos sugeridos:**
+
+1. Crear la base de datos en PostgreSQL:
+
+```sql
+CREATE DATABASE nombre_base_datos;
+```
+
+2. Conectarse a la base de datos:
+
+```bash
+psql -d nombre_base_datos
+```
+
+3. Ejecutar el esquema:
+
+```bash
+\i backend/DB/schema.sql
+```
+
+4. Insertar datos de ejemplo:
+
+```bash
+\i backend/DB/seed.sql
+```
+
+---
+
+## Scripts
+
+- Iniciar en producción:
+
+```
+npm start
+```
+
+- Iniciar en desarrollo con nodemon:
+
+```
+npm run dev
+```
+
+---
+
+## Estructura del proyecto
+
+```
+/src
+  /models
+  /services
+  /controllers
+  /routes
+  /utils
+  /jobs
+  app.js
+  server.js
+```
+
+---
+
+## Funcionalidades
+
+- CRUD completo para Salas.
+- CRUD para Reservas con:
+  - Validación de duración ≤ 2 horas.
+  - Validación de no solapamiento.
+- Cron job:
+  - Cada minuto libera reservas cuyo horario_fin ya pasó.
+
+---
+
+## Endpoints
+
+### Salas
+
+- `GET /salas`
+- `POST /salas`
+  Body JSON:
+  ```
+  {
+    "nombre": "Sala A",
+    "ubicacion": "Piso 1",
+    "capacidad": 8
+  }
+  ```
+- `PUT /salas/:id`
+- `DELETE /salas/:id`
+
+---
+
+### Reservas
+
+- `GET /reservas`
+- `POST /reservas`
+  Body JSON:
+  ```
+  {
+    "sala_id": 1,
+    "horario_inicio": "2025-07-12 10:00:00",
+    "horario_fin": "2025-07-12 11:00:00"
+  }
+  ```
+- `POST /reservas/:id/liberar`
+
+---
+
+## Cron Job
+
+- Implementado con node-cron.
+- Corre cada minuto.
+- Cambia a 'liberada' cualquier reserva 'activa' cuyo horario_fin ya haya pasado.
