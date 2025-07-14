@@ -177,3 +177,16 @@ Esto ejecutará todos los test suites definidos con Jest. Actualmente incluye pr
 - Reservas con duración válida (≤ 2 horas).
 - Error si la duración excede 2 horas.
 - Error si la fecha de fin es anterior a la de inicio.
+
+---
+
+## Notas sobre la arquitectura y microservicios
+
+El enunciado del examen menciona la necesidad de "realizar microservicios en tecnologías orientadas al caso", dando ejemplos de frameworks monolíticos (Laravel, Django, Express).
+
+En este proyecto, se eligió implementar un servicio modular con Node.js y Express, siguiendo una arquitectura en capas clara (rutas, controladores, servicios, modelos, utils, jobs), de acuerdo con buenas prácticas orientadas a servicios (service-oriented).
+
+Este diseño facilita separar responsabilidades y escalar a microservicios reales en el futuro si se requiere. Por ejemplo, sería sencillo extraer la lógica de salas o reservas en servicios independientes. Actualmente, el backend se entrega como un único servicio REST organizado y modular para facilitar la revisión, la instalación y el despliegue en entornos limitados.
+
+Esta decisión cumple con el objetivo del enunciado de usar tecnologías orientadas al caso y diseñar servicios modulares que puedan considerarse microservicios en el sentido arquitectónico.
+
