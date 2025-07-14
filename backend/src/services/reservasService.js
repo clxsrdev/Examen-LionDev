@@ -1,15 +1,14 @@
 const { Reserva } = require('../models');
 const { Op } = require('sequelize');
+const { validateDuration } = require('../utils/validators');
 
 async function getAllReservas() {
   return await Reserva.findAll();
 }
 
 async function createReserva(data) {
-  const duracionHoras = (new Date(data.horario_fin) - new Date(data.horario_inicio)) / (1000 * 60 * 60);
-  if (duracionHoras > 2) {
-    throw new Error('La reserva no puede ser mayor a 2 horas');
-  }
+  // Validar duración
+  validateDuration(data.horario_inicio, data.horario_fin);
 
   // Verificar solapamiento
   const overlap = await Reserva.findOne({
