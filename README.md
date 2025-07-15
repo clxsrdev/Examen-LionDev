@@ -172,11 +172,6 @@ npm run build
 - El cron job garantiza la liberación automática en el backend.  
 - El proyecto sigue una arquitectura modular con separación clara de capas.
 
----
-
 ## 📝 Licencia
 
 Este proyecto se entrega como parte de un examen técnico. Su código es abierto para revisión y evaluación.
-```
-
----
