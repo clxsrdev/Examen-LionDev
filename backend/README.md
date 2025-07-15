@@ -98,15 +98,20 @@ npm run dev
 ## Estructura del proyecto
 
 ```
-/src
-  /models
-  /services
-  /controllers
-  /routes
-  /utils
-  /jobs
-  app.js
-  server.js
+📦 backend
+ ┣ 📂 DB
+ ┣ 📂 node_modules
+ ┣ 📂 src
+ ┃ ┣ 📂 controllers
+ ┃ ┣ 📂 jobs
+ ┃ ┣ 📂 models
+ ┃ ┣ 📂 routes
+ ┃ ┣ 📂 services
+ ┃ ┣ 📂 utils
+ ┃ ┣ 📜 app.js
+ ┃ ┗ 📜 server.js
+ ┣ 📜 package.json
+ ┗ 📜 README.md
 ```
 
 ---
@@ -154,6 +159,13 @@ npm run dev
   }
   ```
 - `POST /reservas/:id/liberar`
+- `DELETE /reservas/:id`
+
+---
+
+### Reservas
+
+- `GET /dashboard/estadisticas`
 
 ---
 

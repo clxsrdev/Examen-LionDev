@@ -27,8 +27,19 @@ async function liberarReserva(req, res) {
   }
 }
 
+async function deleteReserva(req, res) {
+  try {
+    await reservasService.deleteReserva(req.params.id);
+    res.json({ message: 'Reserva eliminada correctamente' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
+
 module.exports = {
   getAllReservas,
   createReserva,
-  liberarReserva
+  liberarReserva,
+  deleteReserva
 };

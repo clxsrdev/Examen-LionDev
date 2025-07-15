@@ -1,9 +1,20 @@
 const { Reserva } = require('../models');
 const { Op } = require('sequelize');
 const { validateDuration } = require('../utils/validators');
+const { convertirAhorarioMexico } = require('../utils/dateUtils');
 
 async function getAllReservas() {
-  return await Reserva.findAll();
+  const reservas = await Reserva.findAll();
+
+  return reservas.map(r => {
+    const reserva = r.toJSON ? r.toJSON() : r;
+
+    return {
+      ...reserva,
+      horario_inicio_local: convertirAhorarioMexico(reserva.horario_inicio),
+      horario_fin_local: convertirAhorarioMexico(reserva.horario_fin),
+    };
+  });
 }
 
 async function createReserva(data) {
@@ -39,12 +50,27 @@ async function createReserva(data) {
 
 async function liberarReserva(id) {
   const reserva = await Reserva.findByPk(id);
-  if (!reserva) throw new Error('Reserva not found');
-  return await reserva.update({ estado: 'liberada' });
+  if (!reserva) throw new Error('Reserva no encontrada');
+
+  const ahora = new Date();
+
+  return await reserva.update({
+    estado: 'liberada',
+    horario_fin: ahora
+  });
 }
+
+
+async function deleteReserva(id) {
+  const reserva = await Reserva.findByPk(id);
+  if (!reserva) throw new Error('Reserva no encontrada');
+  await reserva.destroy();
+}
+
 
 module.exports = {
   getAllReservas,
   createReserva,
-  liberarReserva
+  liberarReserva,
+  deleteReserva
 };

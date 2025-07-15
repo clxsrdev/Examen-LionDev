@@ -15,6 +15,7 @@ app.use(express.json());
 // Routes
 app.use('/salas', salasRoutes);
 app.use('/reservas', reservasRoutes);
+app.use('/api/dashboard', require('./routes/dashboardRoutes'));
 
 // 404 handler
 app.use((req, res, next) => {
