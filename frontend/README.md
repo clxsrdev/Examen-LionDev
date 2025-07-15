@@ -157,6 +157,3 @@ Esto generará los archivos en la carpeta `dist/` listos para ser servidos en un
 ## Licencia
 
 Este proyecto se entrega como parte de un examen técnico. Su código es abierto para revisión y evaluación.
-```
-
----
